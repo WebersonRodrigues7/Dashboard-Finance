@@ -1,6 +1,13 @@
-import { prisma } from "../lib/prisma";
+import { prisma } from "../lib/prisma.js";
 
-async function createUser() {
 
-    const newUser = await prisma
+export async function createUser(email, pass) {
+
+    const newUser = await prisma.user.create ({
+        data: {
+            email: email,
+            pass: pass
+        }
+    });
+    return newUser;
 }
