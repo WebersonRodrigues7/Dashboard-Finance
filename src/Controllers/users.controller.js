@@ -1,19 +1,34 @@
-import { allUsers, createUser, deleteUser } from "../Services/users.service.js";
+import {
+  allUsers,
+  createUser,
+  deleteUser,
+  updateUser,
+} from '../Services/users.service.js';
 
-export async function usersControllerPost (req, res) {
-   const newUser = await createUser (req.body.email, req.body.pass)
+export async function usersControllerPost(req, res) {
+  const newUser = await createUser(req.body.email, req.body.pass);
 
-   res.json(newUser)
+  res.json(newUser);
 }
 
-export async function usersControllerGet (req, res) {
-   const userAll = await allUsers ()
+export async function usersControllerGet(req, res) {
+  const userAll = await allUsers();
 
-   res.json(userAll)
+  res.json(userAll);
 }
 
-export async function usersControllerDel (req, res) {
-   const delUser = await deleteUser (req.params.id)
+export async function usersControllerDel(req, res) {
+  const delUser = await deleteUser(req.params.id);
 
-   res.json(delUser)
+  res.json(delUser);
+}
+
+export async function usersControllerUpd(req, res) {
+  const updtUser = await updateUser(
+    Number(req.params.id),
+    req.body.email,
+    req.body.pass,
+  );
+
+  res.json(updtUser);
 }
