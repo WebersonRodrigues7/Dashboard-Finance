@@ -8,6 +8,7 @@ export async function createUser(email, pass) {
       pass: String(hashPass),
     },
   });
+  
   return newUser;
 }
 
