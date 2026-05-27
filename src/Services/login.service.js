@@ -8,23 +8,24 @@ export async function Login(email, pass) {
       where: { email: email },
     });
 
+    if (!user) {
+      throw new Error('Usuário não encontrado');
+    }
+
     const comparePass = await bcrypt.compare(pass, user.pass);
     const secretKey = process.env.JWT_SECRET;
 
-    if (comparePass == false) {
-      console.log('erro');
+    if (user.email === email && comparePass === true) {
+      const tokenn = await jsonwebtoken.sign(
+        { id: user.id, email: user.email },
+        secretKey,
+        {
+          expiresIn: '1h',
+        },
+      );
+      return tokenn;
     }
-
-    const tokenn = await jsonwebtoken.sign(
-      { id: user.id, email: user.email },
-      secretKey,
-      {
-        expiresIn: '1h',
-      },
-    );
-    console.log(tokenn)
-    return tokenn;
   } catch (err) {
-    console.log(err);
+    throw new Error(err)
   }
 }

@@ -5,13 +5,14 @@ import {
   usersControllerPost,
   usersControllerUpd,
 } from '../Controllers/users.controller.js';
+import { middleware } from '../../middleware.js';
 
 export const userRouter = Router();
 
 userRouter.post('/', usersControllerPost);
 
-userRouter.get('/', usersControllerGet);
+userRouter.get('/', middleware, usersControllerGet);
 
-userRouter.delete('/:id', usersControllerDel);
+userRouter.delete('/:id', middleware, usersControllerDel);
 
-userRouter.put('/:id', usersControllerUpd);
+userRouter.put('/:id', middleware, usersControllerUpd);
